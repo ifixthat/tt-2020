@@ -74,7 +74,8 @@
         <menuitem id="academy_course"
                   parent="academy_root"
                   action="action_openacademy_views"
-                  name="Courses"/>
+                  name="Courses"
+                  sequence="20"/>
         <menuitem id="academy_dummy"
                   parent="academy_root"
                   name="Dummy Menu"/>
