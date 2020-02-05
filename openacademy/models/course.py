@@ -13,7 +13,7 @@ class OpenAcademyTags(models.Model):
 class OpenAcademyCourse(models.Model):
     _name = 'openacademy.course'
     _description =  'OpenAcademy Course'
-    _order = 'id, expiration_date desc'
+    _order = 'id, expire_date desc'
     
     name = fields.Char(string='Course Title', required=True, 
                         index=True, help='Enter your course title on this field.')

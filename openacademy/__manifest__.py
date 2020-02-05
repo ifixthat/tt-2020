@@ -24,6 +24,6 @@
     ],
     # only loaded in demonstration mode
     'demo': [
-        'demo/openacademy_course_demo.xml',
+        #'demo/openacademy_course_demo.xml',
     ],
 }
