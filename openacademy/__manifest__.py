@@ -16,7 +16,7 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['contacts'],
+    'depends': ['contacts', 'web_map'],
 
     # always loaded
     'data': [

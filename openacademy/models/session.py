@@ -11,6 +11,7 @@ class OpenAcademySession(models.Model):
     _name = 'openacademy.session'
     _description =  'OpenAcademy Sessions'
     _order = 'id, start_date'
+    _inherit = ['mail.thread', 'mail.activity.mixin']
     
     sequence = fields.Integer(string='Sequence')
     name = fields.Char(string='Name', required=True, 
@@ -21,6 +22,7 @@ class OpenAcademySession(models.Model):
                          readonly=True, states={'draft': [('readonly', False)]})
     insructor_id = fields.Many2one(comodel_name='res.partner', required=True,
                         string='Instructor', ondelete='restrict', copy=False,
+                        domain=[('instructor', '=', True)],
                         readonly=True, states={'draft': [('readonly', False)], 'approve': [('readonly', False)], 'confirm': [('readonly', False)]})
     location_id = fields.Many2one(comodel_name='res.partner', ondelete='restrict',
                         readonly=True, states={'draft': [('readonly', False)], 'approve': [('readonly', False)]})
@@ -126,8 +128,16 @@ class OpenAcademySession(models.Model):
             
     def action_open_attendee(self):
         self.ensure_one()
-        action_id = self.env.ref('openacademy.action_openacademy_attendees_views')
-        action_vals = action_id.read()[0]
-        action_vals.update({'domain': [('session_id', '=', self.id)]})
+        #action_id = self.env.ref('openacademy.action_openacademy_attendees_views')
+        #action_vals = action_id.read()[0]
+        #action_vals.update({'domain': [('session_id', '=', self.id)]})
+        action_vals = {
+            'name': 'Attendees',
+            'type': 'ir.actions.act_window',
+            'res_model': 'openacademy.attendees',
+            'views': [[self.env.ref('openacademy.view_openacademy_attendees_tree').id, "tree"], [self.env.ref('openacademy.view_openacademy_attendees_form').id, "form"]],
+            'domain': [('session_id', '=', self.id)],
+            'target': 'current'
+        }
         _logger.info(action_vals)
         return action_vals
