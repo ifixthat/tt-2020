@@ -27,11 +27,22 @@
             <field name="arch" type="xml">
                 <form string="Sessions">
                     <header>
-                        <button type="object" name="action_approve" string="Approve" icon="fa-check" confirm="Do you really want to approve this session ?" attrs="{'invisible': [('state', '!=', 'draft')]}"/>
+                        <button type="object" name="action_approve" string="Approve" attrs="{'invisible': [('state', '!=', 'draft')]}" class="btn-primary"/>
+                        <button type="object" name="action_confirm" string="Confirm" attrs="{'invisible': [('state', '!=', 'approve')]}" class="btn-primary"/>
+                        <button type="object" name="action_done" string="Done" attrs="{'invisible': [('state', '!=', 'confirm')]}" class="btn-primary"/>
+                        <button type="object" name="action_cancel" string="Cancel" attrs="{'invisible': [('state', 'in', ('done', 'cancel'))]}"/>
+                        <button type="object" name="action_reset" string="Reset to New" attrs="{'invisible': [('state', '!=', 'cancel')]}"/>
                         <field name="state" widget="statusbar" statusbar_visible="draft,approve,confirm,done" clickable="1"/>
                     </header>
                     <sheet>
-                        <div class="oe_button_box" name="button_box"/>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="action_open_attendee"
+                                    type="object" 
+                                    class="oe_state_button"
+                                    icon="fa-users">
+                                <field name="count_attendee" widget="statinfo" string="Attendees"/>
+                            </button>
+                        </div>
                         <widget name="web_ribbon" title="Archived" bg_color="bg-danger" attrs="{'invisible': [('active', '=', True)]}"/>
                         <div class="oe_title">
                             <field name="active" invisible="1"/>
@@ -100,7 +111,7 @@
         </record>
         
         <menuitem id="academy_session"
-                  parent="academy_root"
+                  parent="openacademy_session_root"
                   action="action_openacademy_sessions_views"
                   name="Sessions"
                   sequence="10"/>

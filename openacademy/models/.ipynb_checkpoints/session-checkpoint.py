@@ -30,15 +30,16 @@ class OpenAcademySession(models.Model):
                                 readonly=True, states={'draft': [('readonly', False)]})
     end_date = fields.Datetime(string='End Date', required=True,
                                   readonly=True, states={'draft': [('readonly', False)]})
-    avail_seat_per = fields.Float(string='Avaliable Seats (%)', store=True,
+    avail_seat_per = fields.Float(string='Avaliable Seats (%)', store=False,
                         compute='_compute_booked_seats')
     max_seats = fields.Integer(string='Maximum Seats',
                               readonly=True, states={'draft': [('readonly', False)], 'approve': [('readonly', False)], 'confirm': [('readonly', False)]})
     min_seats = fields.Integer(string='Minimum Required Seats',
                               readonly=True, states={'draft': [('readonly', False)], 'approve': [('readonly', False)], 'confirm': [('readonly', False)]})
-    booked_seats = fields.Integer(string='Reserved Seats', store=True,
+    booked_seats = fields.Integer(string='Reserved Seats', store=False,
                         compute='_compute_booked_seats')
     syllabus_notes = fields.Html(string='Syllabus')
+    count_attendee = fields.Integer(string='# Attendees', store=False, compute='_compute_syllabus_notes')
     attendees_ids = fields.One2many(comodel_name='openacademy.attendees',
                         inverse_name='session_id', string='Attendees',
                         readonly=True, states={'approve': [('readonly', False)], 'confirm': [('readonly', False)]})
@@ -58,6 +59,11 @@ class OpenAcademySession(models.Model):
         for record in self:
             if record.start_date:
                 record.end_date = record.start_date + timedelta(days=1)
+    
+    @api.depends('attendees_ids')
+    def _compute_syllabus_notes(self):
+        for session in self:
+            session.count_attendee = len(session.attendees_ids)
     
     @api.depends('max_seats', 'attendees_ids.seat_count', 'attendees_ids.state')
     def _compute_booked_seats(self):
@@ -101,3 +107,23 @@ class OpenAcademySession(models.Model):
     def action_approve(self):
         for session in self:
             session.state = 'approve'
+
+    def action_confirm(self):
+        for session in self:
+            session.state = 'confirm'
+
+    def action_reset(self):
+        for session in self:
+            session.state = 'draft'
+            
+    def action_cancel(self):
+        for session in self:
+            session.state = 'cancel'
+
+    def action_done(self):
+        for session in self:
+            session.state = 'done'
+            
+    def action_open_attendee(self):
+        self.ensure_one()
+        action_id = self.env.ref('openacademy.action_openacademy_attendees_views') 
