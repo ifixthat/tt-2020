@@ -87,8 +87,8 @@ class OpenAcademySession(models.Model):
 
     @api.model_create_multi          
     def create(self, vals_list):
-        _logger.warning('*'*50)
-        _logger.warning(vals_list)
+        _logger.info('*'*50)
+        _logger.info(vals_list)
         """
         for record in vals_list:
             if record.get('start_date') and record.get('end_date') and \
@@ -126,4 +126,8 @@ class OpenAcademySession(models.Model):
             
     def action_open_attendee(self):
         self.ensure_one()
-        action_id = self.env.ref('openacademy.action_openacademy_attendees_views') 
+        action_id = self.env.ref('openacademy.action_openacademy_attendees_views')
+        action_vals = action_id.read()[0]
+        action_vals.update({'domain': [('session_id', '=', self.id)]})
+        _logger.info(action_vals)
+        return action_vals

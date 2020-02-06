@@ -15,6 +15,73 @@
             <field name="responsible_id" ref="base.user_demo"/>
             <field name="expire_date" eval="(datetime.now()+relativedelta(days=30)).strftime('%Y-%m-%d %H:%M:%S')"/>
         </record>
+        <record model="res.partner" id="base.res_partner_address_27">
+            <field name="instructor">1</field>
+        </record>
+        <record model="res.partner" id="base.res_partner_address_31">
+            <field name="instructor">1</field>
+        </record>
+        <record model="res.partner" id="base.res_partner_address_30">
+            <field name="instructor">1</field>
+        </record>
+        <record model="res.partner" id="base.res_partner_address_33">
+            <field name="instructor">1</field>
+        </record>
+        
+        <record model="openacademy.session" id="openacademy_session_01">
+            <field name="name">Q1 - Odoo Technical Training</field>
+            <field name="active">1</field>
+            <field name="code">ODOO-TT-Q1</field>
+            <field name="state">draft</field>
+            <field name="max_seats">20</field>
+            <field name="min_seats">5</field>
+            <field name="course_id" ref="openacademy.openacademy_course_01"/>
+            <field name="insructor_id" ref="base.res_partner_address_27"/>
+            <field name="location_id" ref="base.res_partner_18"/>
+            <field name="start_date" eval="datetime.now().strftime('%Y-01-10 09:00:00')"/>
+            <field name="end_date" eval="datetime.now().strftime('%Y-01-15 17:00:00')"/>
+        </record>
+        <record model="openacademy.session" id="openacademy_session_02">
+            <field name="name">Q2 - Odoo Technical Training</field>
+            <field name="active">1</field>
+            <field name="code">ODOO-TT-Q2</field>
+            <field name="state">draft</field>
+            <field name="max_seats">30</field>
+            <field name="min_seats">5</field>
+            <field name="course_id" ref="openacademy.openacademy_course_01"/>
+            <field name="insructor_id" ref="base.res_partner_4"/>
+            <field name="location_id" ref="base.res_partner_2"/>
+            <field name="start_date" eval="datetime.now().strftime('%Y-04-01 09:00:00')"/>
+            <field name="end_date" eval="datetime.now().strftime('%Y-04-05 17:00:00')"/>
+        </record>
+
+        <record model="openacademy.session" id="openacademy_session_03">
+            <field name="name">Q3 - Odoo Functional Training</field>
+            <field name="active">1</field>
+            <field name="code">ODOO-FT-Q3</field>
+            <field name="state">draft</field>
+            <field name="max_seats">100</field>
+            <field name="min_seats">20</field>
+            <field name="course_id" ref="openacademy.openacademy_course_02"/>
+            <field name="insructor_id" ref="base.res_partner_address_27"/>
+            <field name="location_id" ref="base.res_partner_18"/>
+            <field name="start_date" eval="datetime.now().strftime('%Y-07-21 09:00:00')"/>
+            <field name="end_date" eval="datetime.now().strftime('%Y-07-25 17:00:00')"/>
+        </record>
+
+        <record model="openacademy.session" id="openacademy_session_04">
+            <field name="name">Q4 - Odoo Functional Training</field>
+            <field name="active">1</field>
+            <field name="code">ODOO-FT-Q4</field>
+            <field name="state">draft</field>
+            <field name="max_seats">200</field>
+            <field name="min_seats">50</field>
+            <field name="course_id" ref="openacademy.openacademy_course_02"/>
+            <field name="insructor_id" ref="base.res_partner_address_27"/>
+            <field name="location_id" ref="base.res_partner_18"/>
+            <field name="start_date" eval="datetime.now().strftime('%Y-12-06 09:00:00')"/>
+            <field name="end_date" eval="datetime.now().strftime('%Y-12-10 17:00:00')"/>
+        </record>
         
     </data>
 </odoo>
