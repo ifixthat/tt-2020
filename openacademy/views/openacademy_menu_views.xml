@@ -14,7 +14,7 @@
 
         <menuitem id="openacademy_course_root"
                   parent="openacademy_root"
-                  name="Sessions"
+                  name="Courses"
                   sequence="20"/>
 
         <menuitem id="openacademy_config_root"

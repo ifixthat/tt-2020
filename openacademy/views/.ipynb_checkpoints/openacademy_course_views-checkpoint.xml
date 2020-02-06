@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
-        <menuitem id="academy_root" name="Academy"/>
-       
        <record id="view_openacademy_course_tree_normal" model="ir.ui.view">
             <field name="name">view.openacademy.course.tree</field>
             <field name="model">openacademy.course</field>
@@ -76,12 +74,12 @@
         </record>
         
         <menuitem id="academy_course"
-                  parent="academy_root"
+                  parent="openacademy_course_root"
                   action="action_openacademy_views"
                   name="Courses"
                   sequence="20"/>
         <menuitem id="academy_dummy"
-                  parent="academy_root"
+                  parent="openacademy_course_root"
                   name="Dummy Menu"/>
         
     </data>
