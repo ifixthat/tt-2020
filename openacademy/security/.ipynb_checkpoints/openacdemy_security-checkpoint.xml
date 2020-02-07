@@ -44,6 +44,13 @@
             <field name="domain_force">[(1, '=', 1)]</field>
             <field name="groups" eval="[(4, ref('openacademy.group_openacdemy_manager'))]"/>
         </record>
+
+        <record model="ir.rule" id="rule_public_user">
+            <field name="name">Public Approved Sessions</field>
+            <field name="model_id" ref="openacademy.model_openacademy_session"/>
+            <field name="domain_force">[('state', '=', 'approve')]</field>
+            <field name="groups" eval="[(4, ref('base.group_public'))]"/>
+        </record>
         
     </data>
 </odoo>

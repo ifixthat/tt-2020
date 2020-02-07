@@ -28,6 +28,7 @@
         'views/openacademy_session_views.xml',
         'views/openacademy_attendees_views.xml',
         'views/res_partner_views.xml',
+        'views/templates.xml',
         
         'wizard/wizard_invite_attendee_view.xml'
     ],
